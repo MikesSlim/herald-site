@@ -120,12 +120,15 @@
     <h2>Get early access</h2>
     <p class="sub">Herald is in early access. Join the list to be first to try it, with
     launch pricing for churches and studios.</p>
-    <form action="https://buttondown.com/api/emails/embed-subscribe/heraldvideo" method="post" target="_blank">
+    <form action="https://assets.mailerlite.com/jsonp/2490213/forms/192104582758794673/subscribe" method="post" target="ml_iframe">
       <label for="email" class="mono" style="position:absolute;left:-9999px">Email</label>
-      <input id="email" type="email" name="email" placeholder="you@yourchurch.org" required>
+      <input id="email" type="email" name="fields[email]" placeholder="you@yourchurch.org" required autocomplete="email">
+      <input type="hidden" name="ml-submit" value="1">
+      <input type="hidden" name="anticsrf" value="true">
       <button type="submit">Request early access</button>
     </form>
-    <div class="onair"><span class="tally" aria-hidden="true"></span>You're on the list — we'll cut to you at launch.</div>
+    <iframe name="ml_iframe" title="signup" style="display:none" aria-hidden="true"></iframe>
+    <div class="onair"><span class="tally" aria-hidden="true"></span>Almost there — check your inbox to confirm your spot.</div>
     <small class="note">Launch news and early-access builds only. No spam, ever.</small>
   </section>
 
@@ -158,14 +161,10 @@
 </footer>
 
 <script>
-  // Show the on-air confirmation in place. If the list isn't wired up yet (placeholder
-  // username), don't navigate away — just preview the confirmation state.
+  // The form is LIVE — it POSTs into a hidden iframe (MailerLite), so the page doesn't
+  // navigate away; we just show the on-air confirmation in place.
   var form = document.querySelector('form');
-  form.addEventListener('submit', function (e) {
-    if (this.action.indexOf('heraldvideo') !== -1 && !window.__listLive) {
-      // list endpoint not yet confirmed live — preview only, don't post
-      e.preventDefault();
-    }
+  form.addEventListener('submit', function () {
     document.getElementById('waitlist').classList.add('done');
   });
 </script>
