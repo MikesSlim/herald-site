@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Herald — your Mac is the switcher</title>
+<meta name="description" content="Herald turns the Mac you already own into a broadcast gallery — multi-camera switching, scenes, Stream Deck control, streaming and recording. Join the waitlist.">
+<meta property="og:title" content="Herald — your Mac is the switcher">
+<meta property="og:description" content="A native live switcher for macOS. Multi-camera switching, scenes and graphics, Stream Deck control, streaming and recording — no extra boxes in the rack.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://herald.video">
+<meta name="theme-color" content="#131211">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%23E8442E'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --ground:#131211;
+    --panel:#1C1A18;
+    --line:#2C2925;
+    --text:#EFECE6;
+    --muted:#9A948A;
+    --pgm:#E8442E;   /* program / tally red */
+    --pvw:#3BA55D;   /* preview / success green */
+    --maxw:720px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ground);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
+    font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    border-top:3px solid var(--pgm);
+    min-height:100vh;
+  }
+  .mono{
+    font-family:ui-monospace,"SF Mono",SFMono-Regular,Menlo,monospace;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  header{padding:28px 0}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .wordmark{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.08em;font-size:19px}
+  .tally{width:10px;height:10px;border-radius:50%;background:var(--pgm);box-shadow:0 0 12px rgba(232,68,46,.55)}
+  @media (prefers-reduced-motion: no-preference){
+    .tally{animation:pulse 2.4s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  }
+
+  main{display:flex;flex-direction:column;gap:72px;padding:48px 0 96px}
+
+  .hero{display:flex;flex-direction:column;gap:20px}
+  .hero h1{
+    font-size:clamp(38px,7vw,58px);
+    line-height:1.05;font-weight:800;letter-spacing:-.02em;
+    text-wrap:balance;max-width:14ch;
+  }
+  .hero h1 em{font-style:normal;color:var(--pgm)}
+  .hero p{max-width:60ch;color:var(--muted);font-size:19px}
+
+  .signup{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:14px}
+  .signup .mono{color:var(--text)}
+  form{display:flex;gap:10px;flex-wrap:wrap}
+  input[type=email]{
+    flex:1;min-width:220px;
+    background:var(--ground);border:1px solid var(--line);border-radius:4px;
+    color:var(--text);font:inherit;padding:12px 14px;
+  }
+  input[type=email]::placeholder{color:#6d675e}
+  input[type=email]:focus-visible,button:focus-visible{outline:2px solid var(--pgm);outline-offset:2px}
+  button{
+    background:var(--pgm);color:#fff;border:0;border-radius:4px;
+    font:inherit;font-weight:700;padding:12px 22px;cursor:pointer;
+  }
+  button:hover{background:#d63a25}
+  .signup small{color:var(--muted);font-size:14px}
+  .onair{display:none;align-items:center;gap:12px;font-weight:700;font-size:18px}
+  .onair .tally{width:12px;height:12px}
+  .signup.done form,.signup.done small.note{display:none}
+  .signup.done .onair{display:flex}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:640px){.grid{grid-template-columns:1fr}}
+  .tile{
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;
+    padding:22px;display:flex;flex-direction:column;gap:10px;min-height:150px;
+    transition:border-color .15s ease;
+  }
+  .tile:hover{border-color:var(--pgm)}
+  .tile p{color:var(--muted);font-size:15.5px}
+
+  .native{border-left:2px solid var(--line);padding-left:20px;display:flex;flex-direction:column;gap:8px}
+  .native p{max-width:62ch;color:var(--muted)}
+  .native strong{color:var(--text)}
+
+  footer{border-top:1px solid var(--line);padding:24px 0 48px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="wordmark"><span class="tally" aria-hidden="true"></span>HERALD</div>
+    <div class="mono">for macOS · Apple silicon</div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="mono">Native live production · multi-camera</div>
+    <h1>Your Mac <em>is</em> the switcher.</h1>
+    <p>Herald turns the Mac you already own into a broadcast gallery — multi-camera
+    switching, scenes and graphics, Stream Deck control, streaming and recording.
+    No extra boxes in the rack.</p>
+  </section>
+
+  <section class="signup" id="waitlist">
+    <div class="mono">Join the waitlist</div>
+    <form action="https://buttondown.com/api/emails/embed-subscribe/heraldvideo" method="post" target="_blank">
+      <label for="email" class="mono" style="position:absolute;left:-9999px">Email</label>
+      <input id="email" type="email" name="email" placeholder="you@example.com" required>
+      <button type="submit">Request early access</button>
+    </form>
+    <div class="onair"><span class="tally" aria-hidden="true"></span>You're on the list — we'll cut to you at launch.</div>
+    <small class="note">Early-access builds and launch pricing. Launch news only — no spam, ever.</small>
+  </section>
+
+  <section class="grid" aria-label="What Herald does">
+    <div class="tile">
+      <div class="mono">Scenes</div>
+      <p>ATEM-style scene editor — picture-in-picture, split screens, frame imports,
+      one-button recall of every layout you build.</p>
+    </div>
+    <div class="tile">
+      <div class="mono">In / Out</div>
+      <p>NDI cameras in over a single network cable. Stream out to YouTube or anywhere
+      RTMPS goes, and record the programme while you're live.</p>
+    </div>
+    <div class="tile">
+      <div class="mono">Control</div>
+      <p>Stream Deck as a real control surface, remote control from another Mac, and
+      HyperDeck decks driven over the network.</p>
+    </div>
+    <div class="tile">
+      <div class="mono">Looks</div>
+      <p>Per-camera background blur with no green screen, clip playback with sound,
+      clean feed for projection, multiview on any display.</p>
+    </div>
+  </section>
+
+  <section class="native">
+    <div class="mono">Why native matters</div>
+    <p><strong>Built on Apple silicon, not in a web wrapper.</strong> Metal compositing and
+    VideoToolbox hardware encoders mean one quiet Mac carries the whole production.</p>
+    <p><strong>Designed from the tech booth.</strong> Simple enough for a volunteer to run a
+    Sunday service; deep enough to run a studio.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="mono">© 2026 Herald · Built in the UK</div>
+    <div class="mono">Standing by</div>
+  </div>
+</footer>
+
+<script>
+  // Progressive enhancement: show the on-air confirmation without leaving the page.
+  document.querySelector('form').addEventListener('submit', function (e) {
+    var section = document.getElementById('waitlist');
+    if (this.action.indexOf('REPLACE_USERNAME') !== -1) {
+      e.preventDefault(); // preview mode: no list wired up yet
+    }
+    section.classList.add('done');
+  });
+</script>
+
+</body>
+</html>
