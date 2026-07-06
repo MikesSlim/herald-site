@@ -130,6 +130,8 @@
   footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
   footer a:hover{color:var(--text);border-color:var(--pgm)}
 </style>
+<!-- Privacy-friendly, cookieless analytics (no consent banner needed). To start collecting, add the domain herald.video (free, ~2 min) at plausible.io — until then this call is simply dropped. -->
+<script defer data-domain="herald.video" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
 
@@ -156,6 +158,8 @@
         </svg>
         Built for Apple silicon — every Mac
       </span>
+      <div class="mono" style="margin-top:22px;color:var(--pgm);letter-spacing:.1em">ATEM Mini + OBS + a Windows PC&nbsp;&nbsp;→&nbsp;&nbsp;one native Mac app</div>
+      <div style="margin-top:20px"><a href="#waitlist" class="btn">Request early access →</a></div>
     </div>
 
     <div class="macwin" aria-label="Herald running on macOS">
@@ -246,7 +250,7 @@
     <div class="tile"><div class="mono">Into Zoom &amp; Teams</div>
       <p>Herald appears as a camera in Zoom, Teams and Meet — so your call gets multi-cam switching, blur, overlays and SuperSource those apps can't do on their own.</p></div>
     <div class="tile"><div class="mono">Stream + record + slides</div>
-      <p>Go live over RTMPS while the same Mac records a clean master — on Apple's own media engines. PowerPoint and slides drop straight in.</p></div>
+      <p>Go live over RTMPS while the same Mac records a clean master — on Apple's own media engines. PowerPoint and slides drop straight in — plus a <b style="color:var(--text);font-weight:600">stage display</b> (current slide, next slide and a service clock) for your presenter.</p></div>
   </section>
 
   <section class="cta" id="waitlist">
@@ -283,11 +287,20 @@
 </footer>
 
 <script>
-  // The form is LIVE — it POSTs into a hidden iframe (MailerLite), so the page doesn't
-  // navigate away; we just show the on-air confirmation in place.
+  // The form POSTs into a hidden iframe (MailerLite) so the page doesn't navigate away.
+  // Show the "check your inbox" confirmation ONLY after that iframe actually loads MailerLite's
+  // response to a real submit — never on the raw submit event. That way a blocked or failed POST
+  // (adblock, offline, MailerLite down) can't show a false success to someone who isn't subscribed,
+  // which would silently inflate the signup count.
   var form = document.querySelector('form');
-  form.addEventListener('submit', function () {
-    document.getElementById('waitlist').classList.add('done');
+  var mlFrame = document.querySelector('iframe[name="ml_iframe"]');
+  var pending = false;
+  form.addEventListener('submit', function () { pending = true; });
+  mlFrame.addEventListener('load', function () {
+    if (pending) {
+      document.getElementById('waitlist').classList.add('done');
+      pending = false;
+    }
   });
 </script>
 
